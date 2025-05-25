@@ -22,3 +22,6 @@
 .task_block_ni {
   @apply bg-green-300;
 }
+.dragging {
+  @apply bg-pink-500;
+}
