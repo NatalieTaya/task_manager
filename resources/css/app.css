@@ -8,19 +8,19 @@
   @apply px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-700;
 }
 .title{
-  @apply select-none;
+  @apply select-none bg-slate-800 h-10 text-center text-white m-0;
 }
 .task_block {
-  @apply px-4 py-2 border border-2 h-screen;
+  @apply px-4 py-2  border-2 h-screen m-1 border-violet-950 rounded;
 }
 .task_block_im {
-  @apply bg-red-400;
+  @apply bg-red-400 bg-opacity-20 relative;
 }
 .task_block_ss {
-  @apply bg-amber-200;
+  @apply bg-amber-200 bg-opacity-20 relative;
 }
 .task_block_ni {
-  @apply bg-green-300;
+  @apply bg-green-300 bg-opacity-20 relative;
 }
 .dragging {
   @apply bg-pink-500;
