@@ -25,3 +25,6 @@
 .dragging {
   @apply bg-pink-500;
 }
+.drag-item{
+  @apply p-1 m-1 w-auto;
+}

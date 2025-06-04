@@ -13,6 +13,10 @@
 <body class="bg-slate-900">
     
     @yield(section: 'title')
+    @if (session()->has('success'))
+    <div>{{ session('success') }}</div>
+    
+    @endif
     @yield('content')
 
 </body>
