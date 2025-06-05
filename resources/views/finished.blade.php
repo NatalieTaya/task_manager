@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('header')
+    <div class="header">
+    </div>
+@endsection
 
 @section('title', "Finished tasks")
 
@@ -12,5 +16,10 @@
     @empty
         <p> There are no tasks </p> 
     @endforelse
+    </div>
+@endsection
+
+@section('footer')
+    <div class="footer">
     </div>
 @endsection

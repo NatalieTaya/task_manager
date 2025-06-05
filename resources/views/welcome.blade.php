@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
+@section('header')
+    <div class="header">
+    </div>
+@endsection
 
+@section('main_head')
+        <div class="main_head">Hi,user!   <br> 
+            Here are your current tasks:
+        </div>
+@endsection
+
+@section('content')
 <div class="flex py-5 px-5 w-1/2">
     <a href="{{ route('tasks.create') }}" class="btn flex-1 m-1 ">Create task</a>
     <a href="{{ route('tasks.finished') }}" class="btn flex-1 m-1 ">Show all finished tasks</a>
@@ -16,7 +27,7 @@
             @endforeach
         </div>
         <div  id="zone-1" class="drop-zone  task_block task_block_im flex-1">
-            <h2 class="title">   Important tasks</h2>   
+            <h2 class="title">   Urgent tasks</h2>   
             @foreach($tasks_1 as $task)
                 <li id="{{ $task->id }}" draggable="true" class="drag-item  bg-violet-700">
                     {{ $task->title }}
@@ -40,3 +51,9 @@
             @endforeach
         </div>
 </div>
+@endsection
+
+@section('footer')
+    <div class="footer">
+    </div>
+@endsection

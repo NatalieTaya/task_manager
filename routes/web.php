@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Requests\TaskRequest;
 use Illuminate\Support\Facades\Route;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -55,32 +56,29 @@ Route::post('/update-item-importance', function (Request $request) {
     }
 });
 
-Route::post('/create', function(Request $request){
-    $data = $request->validate([
-        'title' => 'required',
-        'description' => 'required',
-        'importance' => 'required',
-    ]);
-    $task = new Task;
-    $task->title=$data['title'];
-    $task->description=$data['description'];
-    $task->importance=$data['importance'];
+Route::post('/create', function(TaskRequest $request){
+    // $data=$request->validated();
+    // $task = new Task;
+    // $task->title=$data['title'];
+    // $task->description=$data['description'];
+    // $task->importance=$data['importance'];
+    // $task->save();
 
-    $task->save();
+    $task=Task::create($request->validated());
     return redirect()->route('tasks.index')->with('success',"New task created");
 })->name('tasks.store');
 
-Route::put('/tasks/{id}', function($id, Request $request){
-    $data = $request->validate([
-        'title' => 'required',
-        'description' => 'required',
-        'importance' => 'required',
-    ]);
-    $task = Task::findOrFail($id);
-    $task->title=$data['title'];
-    $task->description=$data['description'];
-    $task->importance=$data['importance'];
-
-    $task->save();
+Route::put('/tasks/{task}', function(Task $task, TaskRequest $request){
+    // $data=$request->validated();
+    // $task->title=$data['title'];
+    // $task->description=$data['description'];
+    // $task->importance=$data['importance'];
+    // $task->save();
+    $task -> update($request->validated());
     return redirect()->route('tasks.index')->with('success',"Task updated");
 })->name('tasks.update');
+
+Route::delete('/tasks/{task}', function(Task $task){
+    $task -> delete();
+    return redirect()->route(route: 'tasks.index')->with('success',"Task deleted");
+})->name('tasks.destroy');
