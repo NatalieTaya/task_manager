@@ -24,7 +24,7 @@
                     <rect x="17" y="3"  width="12" height="16" fill="none" stroke="rgb(200,183,235)" stroke-width="2" rx="2"  ry="2"/>
                     <rect x="17" y="21" width="12" height="16" fill="none" stroke="rgb(200,183,235)" stroke-width="2" rx="2"  ry="2"/>
                 </svg>
-                <a>Dashboard</a>
+                <a class="sidebar_item" href="{{ route('tasks.index') }}">Dashboard</a>
             </li>
             <li class="li">
                 <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +36,7 @@
                     <line x1="10" y1="17" x2="25" y2="17" stroke="rgb(200,183,235)" stroke-width="3"  stroke-linecap="round" />
                     <line x1="10" y1="26" x2="25" y2="26" stroke="rgb(200,183,235)" stroke-width="3"  stroke-linecap="round" />
                 </svg>
-                <a>My tasks</a>
+                <a class="sidebar_item" href="{{ route('tasks.current') }}">My tasks</a>
             </li>
             <li class="li">
                 <svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
@@ -47,10 +47,10 @@
                     <line x1="15" y1="17" x2="25" y2="17" stroke="rgb(200,183,235)" stroke-width="3"  stroke-linecap="round" />
                     <line x1="15" y1="26" x2="25" y2="26" stroke="rgb(200,183,235)" stroke-width="3"  stroke-linecap="round" />
                 </svg>
-                <a>Completed</a>
+                <a class="sidebar_item" href="{{ route('tasks.finished') }}">Completed</a>
             </li>
         </div>
-        <div >
+        <div class="w-full">
             @yield('main_head')
             @yield('content')
         </div>

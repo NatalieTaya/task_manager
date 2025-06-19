@@ -8,11 +8,18 @@
 @section('main_head', "Task ". $task->id )
 @section('content')
     {{$task->title}}
+
+        <form action="{{ route('tasks.edit', ['task' => $task->id]) }}" method="get">
+           @csrf
+           <button class="btn" type="submit">Edit</button>
+        </form>
+
         <form action="{{ route('tasks.destroy', ['task' => $task->id]) }}" method="post">
            @csrf
            @method('DELETE') 
            <button class="btn" type="submit">Delete</button>
         </form>
+        
 @endsection
 
 @section('footer')

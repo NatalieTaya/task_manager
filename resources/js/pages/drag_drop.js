@@ -3,6 +3,8 @@
         let currentDragItem = null;
         const dropZones = document.querySelectorAll('.drop-zone');
         const dragItems = document.querySelectorAll('.drag-item');
+        const itemWidth = dragItems[0].offsetWidth; // saving current width of the graggable element
+        const zoneHeight = dropZones[0].offsetHeight; // saving current height of the zones
         let isDragging = false;
         let isMouseUp = true;
         const text = document.getElementById('text');
@@ -15,20 +17,26 @@
             isMouseUp=false
             isDragging=true
             const rect = item.getBoundingClientRect()
-            offsetX = e.clientX - rect.left
-            offsetY = e.clientY - rect.top
+            offsetX = e.clientX - window.scrollX - rect.left;
+            offsetY = e.clientY - window.scrollY - rect.top;
             currentDragItem=item
             item.style.position = 'absolute';
             item.style.zIndex='1000'
             document.body.appendChild(item); // Перемещаем в body для свободного перемещения
             itemId = item.getAttribute('id');
-
+            currentDragItem.style.left = (e.clientX - offsetX) + 'px';
+            currentDragItem.style.top = (e.clientY - offsetY) + 'px';
+            currentDragItem.style.width=`${itemWidth}px`
+            dropZones[0].style.height=`${zoneHeight}px`
         })
        })
         document.addEventListener('mousemove', function(e) {
             if (!isDragging || !currentDragItem || isMouseUp) return;
             currentDragItem.style.left = (e.clientX - offsetX) + 'px';
             currentDragItem.style.top = (e.clientY - offsetY) + 'px';
+            currentDragItem.style.width=`${itemWidth}px`
+            dropZones[0].style.height=`${zoneHeight}px`
+
         });
         document.addEventListener('mouseup', async function(e) {
             if (!isDragging || !currentDragItem) return;

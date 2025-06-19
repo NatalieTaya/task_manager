@@ -12,7 +12,7 @@
   @apply w-[15vw] flex-shrink-0 border-r-2 border-[rgb(200,183,235)];
 }
 .li{
-  @apply px-8 my-5 flex;
+  @apply px-8 my-8 flex h-8;
 }
 .main_head{
   @apply p-10 font-bold text-2xl;
@@ -23,24 +23,27 @@
 .title{
   @apply p-10 text-2xl text-center text-black;
 }
-.task_block {
-  @apply px-4 py-2  border-2  m-1 rounded;
-}
-.task_block_im {
-  @apply bg-red-400 bg-opacity-20 relative;
-}
-.task_block_ss {
-  @apply bg-amber-200 bg-opacity-20 relative;
-}
-.task_block_ni {
-  @apply bg-green-300 bg-opacity-20 relative;
+.drop-zone {
+  @apply px-4 py-2 border-2 m-1 flex-1 rounded;
 }
 .dragging {
   @apply bg-pink-500;
 }
 .drag-item{
-  @apply p-1 m-1 w-auto;
+  @apply px-4 py-2 m-1 bg-[rgb(200,183,235)] rounded list-none;
 }
 .btn {
   @apply px-4 py-2 bg-[rgb(89,56,169)] text-white rounded hover:bg-[rgb(149,76,193)];
+}
+.task_item {
+  @apply block bg-[rgb(244,242,255)] p-4 m-2 rounded-lg
+}
+.sidebar_item {
+  @apply text-lg py-2 hover:text-[rgb(89,56,169)]
+}
+.input_title {
+    @apply border-2 block w-1/2  m-2 rounded
+}
+.input_description {
+    @apply border-2 block w-1/2 h-40 m-2 rounded
 }

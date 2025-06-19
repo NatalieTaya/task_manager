@@ -3,29 +3,35 @@
 @section('title', isset($task) ? 'Edit task' :'Create Task')
 
 @section('content')
-    <form method="POST" action="{{  isset($task) 
+    <form method="POST" class="m-10 w-full"
+                        action="{{  isset($task) 
                                     ? route('tasks.update', ['task'=>$task->id]) 
-                                    : route('tasks.create') }}">
+                                    : route('tasks.store') }}">
         @csrf
         @isset($task)
             @method('PUT')
         @endisset
-        <label for="">Title</label>
-        <input type="text" name="title">
+        <label for="" class="m-2">Title</label>
+        <input type="text" name="title" class="input_title">
         @error('title')
             <p>{{ $message }}</p>
         @enderror
-        <label for="">Description</label>
-        <textarea name="description"></textarea>
+        <label for="" class="m-2">Description</label>
+        <textarea name="description" class="input_description"></textarea>
         @error('description')
             <p>{{ $message }}</p>
         @enderror
-        <label for="">Importance</label>
-        <input type="text" name="importance">
+        <label for="" class="m-2">Importance</label>
+        <select id="importance" name="importance" class="border p-2 m-2 rounded block">
+            <option value="0">Not sorted</option>
+            <option value="1">Urgent</option>
+            <option value="2">So-so urgent</option>
+            <option value="2">Not urgent</option>
+        </select>
         @error('importance')
             <p>{{ $message }}</p>
         @enderror
-        <button type="submit"> 
+        <button type="submit" class="btn m-2"> 
             @isset($task)
                 Update Task
             @else

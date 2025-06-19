@@ -5,12 +5,12 @@
     </div>
 @endsection
 
-@section('title', "Finished tasks")
+@section('title', "Current tasks")
 
 @section('content')
-    <div class="mx-auto flex flex-col items-center">
+    <div class="mx-auto ">
     @forelse ($tasks as $task)
-        <a href="{{ route('tasks.show', $task -> id) }}" class="m-1 p-5 rounded bg-pink-500 w-3/4"> 
+        <a href="{{ route('tasks.show', $task -> id) }}" class="task_item"> 
             {{ $task -> title}} 
         </a>
     @empty
