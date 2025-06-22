@@ -2,11 +2,12 @@
 
 @section('header')
     <div class="header">
+
     </div>
 @endsection
 
 @section('main_head')
-        <div class="main_head">Hi,user!   <br> 
+        <div class="main_head">Hi, {{ $user = auth()->user()->name }}!   <br> 
             Here are your current tasks:
         </div>
 @endsection
