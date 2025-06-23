@@ -21,5 +21,12 @@ class LoginController extends Controller
         }
         return back()->withErrors(['username' => 'Неверные данные']);
     }
+    public function logout(Request $request)
+    {
+        Auth::logout(); // Завершение сессии пользователя
+        $request->session()->invalidate(); // Очистка сессии
+        $request->session()->regenerateToken(); // Генерация нового CSRF-токена
+        return redirect('/');    
+    }
     
 }

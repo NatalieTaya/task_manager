@@ -12,7 +12,23 @@
 </head>
 <body>
     
-    @yield('header')
+    <div class="header flex justify-end">
+        <form action="{{ route('logout') }}" method="post" class=" m-2 ">
+            @csrf
+            <button type="submit" class="bg-[rgb(89,56,169)] h-16  rounded">
+                <li class=" w-32 h-14 list-none flex">
+                    <svg width="50" height="50" class="m-2" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="0" y="0" width="30" height="40" fill="none" stroke="rgb(200,183,235)" stroke-width="2" rx="5"  ry="5"/>
+                        <line x1="15" y1="10" x2="22" y2="20" stroke="rgb(200,183,235)" stroke-width="3"  stroke-linecap="round" />
+                        <line x1="15" y1="30" x2="22" y2="20" stroke="rgb(200,183,235)" stroke-width="3"  stroke-linecap="round" />
+                        <line x1="5" y1="20" x2="22" y2="20" stroke="rgb(200,183,235)" stroke-width="3"  stroke-linecap="round" />
+                    </svg>
+                    <a class="block my-4 text-slate-50">Exit</a>
+                </li>
+            </button>
+        </form>
+    </div>
+
     <div class="w-[100vw] flex">
         <div class="sidebar">
             <h1 class="main_title">Task manager</h1>

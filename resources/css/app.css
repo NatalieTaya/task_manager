@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .header {
-  @apply bg-[rgb(200,183,235)] p-0 h-16;
+  @apply bg-[rgb(200,183,235)] p-0 h-20;
 }
 .footer {
   @apply bg-[rgb(200,183,235)] p-0 h-16;
@@ -15,7 +15,7 @@
   @apply px-8 my-8 flex h-8;
 }
 .main_head{
-  @apply p-10 font-bold text-2xl;
+  @apply px-10 pt-10 font-bold text-2xl;
 }
 .main_title{
   @apply p-10 text-3xl text-center text-black;

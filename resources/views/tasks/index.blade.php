@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-@section('header')
-    <div class="header">
-
-    </div>
-@endsection
 
 @section('main_head')
         <div class="main_head">Hi, {{ $user = auth()->user()->name }}!   <br> 
@@ -14,8 +9,7 @@
 
 @section('content')
 <div class="flex py-5 px-5 w-1/2">
-    <a href="{{ route('tasks.create') }}" class="btn flex-1 m-1">Create task</a>
-    <a href="{{ route('tasks.create') }}" class="btn flex-1 m-1 ">Create board</a>
+    <a href="{{ route('tasks.create') }}" class="btn m-1">Create task</a>
 </div>
 
 <div class="flex">
