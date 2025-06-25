@@ -5,19 +5,26 @@
     </div>
 @endsection
 
-@section('main_head', "Task ". $task->id )
 @section('content')
-    {{$task->title}}
+    <div class="m-4 text-lg">
+        {{ "Task ". $task->id }}
+    </div>
+    <div class="m-4">
+        {{$task->title}}
+    </div>
+    <div class="m-4">
+        {{$task->description}} 
+    </div>
 
         <form action="{{ route('tasks.edit', ['task' => $task->id]) }}" method="get">
            @csrf
-           <button class="btn" type="submit">Edit</button>
+           <button class="btn m-4" type="submit">Edit</button>
         </form>
 
         <form action="{{ route('tasks.destroy', ['task' => $task->id]) }}" method="post">
            @csrf
            @method('DELETE') 
-           <button class="btn" type="submit">Delete</button>
+           <button class="btn m-4" type="submit">Delete</button>
         </form>
         
 @endsection

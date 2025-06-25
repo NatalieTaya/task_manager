@@ -2,39 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        $id = $request->input('id');
-        $tasks = Task::when($id, 
-            fn($query,$id) => $query->id($id))
-            ->get();
+
+        /** @var \App\Models\User $user */        
+        $user = Auth::user();
+        $tasks = $user->tasks()->get()->groupBy('importance');
+
         return view('tasks.index', [
-            'tasks_0' => Task::where('importance',0)->get(),
-            'tasks_1' => Task::where('importance',1)->get(),
-            'tasks_2' => Task::where('importance',2)->get(),
-            'tasks_3' => Task::where('importance',3)->get(),
+            'tasks_0' => $tasks->get(0, collect()),
+            'tasks_1' => $tasks->get(1, collect()),
+            'tasks_2' => $tasks->get(2, collect()),
+            'tasks_3' => $tasks->get(3, collect()),
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         return view('tasks.create'); // Форма создания
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $validated = $request -> validate([
@@ -42,37 +39,38 @@ class TaskController extends Controller
             'description' => 'required',
             'importance' =>'required'
         ]);
-
-        Task::create($validated);
+        /** @var \App\Models\User $user */        
+        $user = Auth::user();
+        $task = $user->tasks()->create($validated);
         return redirect()->route('tasks.index')->with('success', 'Task created!');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
-        $task=Task::findOrFail($id);
+        /** @var \App\Models\User $user */        
+        $user = Auth::user();
+        $task = $user->tasks()->findOrFail($id);
+
+        //$task=Task::findOrFail($id);
         return view('tasks.show', [
                 'task' => $task]
             );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         return view('tasks.edit'); // Форма создания
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
-        $task=Task::findOrFail($id);
+        /** @var \App\Models\User $user */        
+        $user = Auth::user();
+        $task = $user->tasks()->where('id',$id)->first();
+        //$task=Task::findOrFail($id);
         $validated = $request -> validate([
             'title' => 'required',
             'description' => 'required',
@@ -83,23 +81,52 @@ class TaskController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
-        $task = Task::findOrFail($id);
+        /** @var \App\Models\User $user */        
+        $user = Auth::user();
+        $task = $user->tasks()->where('id',$id)->first();
+        //$task = Task::findOrFail($id);
         $task -> delete();
         return redirect()->route( 'tasks.index')->with('success',"Task deleted");
     }
     public function finished(Request $request)
     {
-        $tasks = Task::where('is_completed', true)->get();
+        /** @var \App\Models\User $user */        
+        $user = Auth::user();
+        $tasks = $user->tasks()->where('is_completed', true)->get();
         return view( 'tasks.finished', ['tasks'=>$tasks]);
     }
     public function current(Request $request)
     {
-        $tasks = Task::where('is_completed', false)->get();
+        /** @var \App\Models\User $user */        
+        $user = Auth::user();
+        $tasks = $user->tasks()->where('is_completed', false)->get();
         return view( 'tasks.finished', ['tasks'=>$tasks]);
+    }
+    public function updateItemImportance(Request $request)
+    {
+        $validated = $request->validate([
+        'item_id' => 'required|numeric',
+        'new_zone' => 'required|in:zone-1,zone-2,zone-3,zone-0'
+        ]);
+
+        switch  ($validated['new_zone']) {
+        case 'zone-0':
+            DB::table('tasks')->where('id', $validated['item_id'])
+            ->update(['importance' => 0]);break;
+        case 'zone-1':
+            DB::table('tasks') ->where('id', $validated['item_id'])
+            ->update(['importance' => 1]);   break;
+        case 'zone-2':
+            DB::table('tasks') ->where('id', $validated['item_id'])
+            ->update(['importance' => 2]);  break;
+        case 'zone-3':
+            DB::table('tasks') ->where('id', $validated['item_id'])
+            ->update(['importance' => 3]);   break; 
+    }
+
+        return response()->json(['success' => true]);
     }
 }
